@@ -19,7 +19,7 @@
             ref="userEmail"
             class="mx-4"
             v-model="loginForm.userEmail"
-            :rules="[loginRules.min3]"
+            :rules="[loginRules.required]"
             prepend-icon="mdi-email-outline"
             label="Email"
             outlined
@@ -66,8 +66,8 @@
 export default {
   data: () => ({
     loginForm: {
-      userEmail: 'admin',
-      password: 'macro123'
+      userEmail: '',
+      password: ''
     },
     loginRules: {
       min3: (value) => (value && value.length >= 3) || 'Min 3 characters',
