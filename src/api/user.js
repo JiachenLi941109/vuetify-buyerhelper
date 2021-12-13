@@ -16,6 +16,14 @@ export function register (data) {
   })
 }
 
+export function getAuthCode (data) {
+  return request({
+    url: '/user/getAuthCode',
+    method: 'post',
+    data
+  })
+}
+
 export function getInfo (token) {
   return request({
     url: '/admin/info',

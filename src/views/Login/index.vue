@@ -1,6 +1,6 @@
 <template>
   <v-app id="login">
-    <v-container class="d-flex align-center fill-height justify-center">
+    <v-container fluid class="d-flex align-center fill-height justify-center pa-0">
       <v-card
         elevation="12"
         width="400px"
