@@ -1,6 +1,9 @@
 <template>
   <v-app id="login">
-    <v-container fluid class="d-flex align-center fill-height justify-center pa-0">
+    <v-container
+      fluid
+      class="d-flex align-center fill-height justify-center pa-0"
+    >
       <v-card
         elevation="12"
         width="400px"
@@ -40,6 +43,7 @@
             clearable
             :error-messages="errorMessages"
             @click:append="showPwd = !showPwd"
+            @keyup.enter="handleLogin"
           ></v-text-field>
         </v-form>
         <v-card-actions>

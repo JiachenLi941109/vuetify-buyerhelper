@@ -24,17 +24,16 @@ export function getAuthCode (data) {
   })
 }
 
-export function getInfo (token) {
+export function getInfo () {
   return request({
-    url: '/admin/info',
-    method: 'get',
-    params: { token }
+    url: '/user/getInfo',
+    method: 'get'
   })
 }
 
 export function logout () {
   return request({
-    url: '/logout',
+    url: '/user/logout',
     method: 'post'
   })
 }

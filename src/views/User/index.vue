@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-form :model="userInfo" class="pt-4">
+    <v-form class="pt-4">
       <v-row>
         <v-col cols="2">
           <div class="text-h6 text-right pt-2 px-2 text-no-wrap">邮箱</div>
@@ -11,7 +11,7 @@
             solo
             flat
             hide-details="auto"
-            v-model="userInfo.email"
+            v-model="email"
           ></v-text-field>
           <v-btn color="primary" small outlined class="ma-2">修改密码</v-btn>
           <v-btn color="primary" small outlined class="ma-2">重置密码</v-btn>
@@ -22,11 +22,14 @@
 </template>
 <script>
 export default {
-  data: () => ({
-    userInfo: {
-      email: 'wersd_qazse@163.com',
-      invitationCode: '7245245'
+  data: () => ({}),
+  created () {
+    this.$store.dispatch('user/getInfo')
+  },
+  computed: {
+    email () {
+      return this.$store.state.user.name
     }
-  })
+  }
 }
 </script>

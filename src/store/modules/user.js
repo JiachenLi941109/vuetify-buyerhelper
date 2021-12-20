@@ -81,18 +81,15 @@ const actions = {
   // get user info
   getInfo ({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getInfo(state.token)
+      getInfo()
         .then((response) => {
           const { data } = response
-
           if (!data) {
-            // eslint-disable-next-line prefer-promise-reject-errors
-            return reject('Verification failed, please Login again.')
+            const error = 'Verification failed, please Login again.'
+            return reject(error)
           }
-
-          const { name, avatar } = data
-
-          commit('SET_NAME', name)
+          const { username, avatar } = data
+          commit('SET_NAME', username)
           commit('SET_AVATAR', avatar)
           resolve(data)
         })
