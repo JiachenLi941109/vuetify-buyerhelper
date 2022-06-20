@@ -11,7 +11,7 @@
       >
         <v-img
           height="150"
-          src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+          :src=img
         ></v-img>
 
         <router-link to="/" class="text-center mx-auto" tag="button">
@@ -79,7 +79,8 @@ export default {
     },
     showPwd: false,
     loading: false,
-    errorMessages: []
+    errorMessages: [],
+    img: require('@/assets/cooking.png')
   }),
 
   methods: {

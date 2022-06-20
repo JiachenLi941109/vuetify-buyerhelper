@@ -8,12 +8,14 @@ const routes = [
   {
     path: '/',
     name: 'Landing',
+    meta: { title: '首页' },
     component: () => import('../views/Landing/index.vue'),
     hidden: true
   },
   {
     path: '/login',
     name: 'Login',
+    meta: { title: '登录' },
     component: () => import('../views/Login/index.vue'),
     hidden: true
   },

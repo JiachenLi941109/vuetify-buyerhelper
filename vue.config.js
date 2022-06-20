@@ -6,17 +6,7 @@ function resolve (dir) {
 }
 module.exports = {
   devServer: {
-    port: 8081,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:8080',
-        changeOrigin: true,
-        ws: true,
-        pathRewrite: {
-          '^/api': ''
-        }
-      }
-    }
+    port: 8081
   },
 
   transpileDependencies: ['vuetify'],

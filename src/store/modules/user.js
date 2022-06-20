@@ -1,6 +1,7 @@
 import { login, getInfo, register, getAuthCode } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
+import { subscribe } from '@/api/membership'
 
 const getDefaultState = () => {
   return {
@@ -78,8 +79,19 @@ const actions = {
     })
   },
 
+  // subscribe
+  subscribe ({ commit }, subscribeForm) {
+    return new Promise((resolve, reject) => {
+      subscribe(subscribeForm).then((response) => {
+        resolve()
+      }).catch((error) => {
+        reject(error)
+      })
+    })
+  },
+
   // get user info
-  getInfo ({ commit, state }) {
+  getInfo ({ commit }) {
     return new Promise((resolve, reject) => {
       getInfo()
         .then((response) => {

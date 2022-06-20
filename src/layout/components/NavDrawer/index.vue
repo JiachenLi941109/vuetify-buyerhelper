@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer v-model="sidebar.opened" app clipped width="200px">
     <v-list nav dense>
-      <v-list-item-group active-class="deep-purple--text text--accent-4">
+      <v-list-item-group active-class="deep-purple--text text--accent-4" style="font-size: 50px;">
         <sidebar-item
           v-for="route in routes"
           :key="route.path"
