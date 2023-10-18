@@ -16,9 +16,25 @@ export function register (data) {
   })
 }
 
-export function getAuthCode (data) {
+export function resetPassword (data) {
   return request({
-    url: '/user/getAuthCode',
+    url: '/user/resetPassword',
+    method: 'post',
+    data
+  })
+}
+
+export function getRegisterAuthCode (data) {
+  return request({
+    url: '/user/getRegisterAuthCode',
+    method: 'post',
+    data
+  })
+}
+
+export function getPasswordFoundAuthCode (data) {
+  return request({
+    url: '/user/getPasswordFoundAuthCode',
     method: 'post',
     data
   })

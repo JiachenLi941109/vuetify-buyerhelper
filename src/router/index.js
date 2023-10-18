@@ -26,6 +26,12 @@ const routes = [
     hidden: true
   },
   {
+    path: '/resetPw',
+    name: 'ResetPw',
+    component: () => import('../views/Login/resetPw.vue'),
+    hidden: true
+  },
+  {
     path: '/dashboard',
     component: Layout,
     children: [

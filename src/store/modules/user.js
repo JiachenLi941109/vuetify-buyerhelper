@@ -1,4 +1,11 @@
-import { login, getInfo, register, getAuthCode } from '@/api/user'
+import {
+  login,
+  getInfo,
+  register,
+  getRegisterAuthCode,
+  getPasswordFoundAuthCode,
+  resetPassword
+} from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 import { subscribe } from '@/api/membership'
@@ -47,10 +54,24 @@ const actions = {
     })
   },
 
-  // user getAuthCode
-  getAuthCode ({ commit }, userEmail) {
+  // user getRegisterAuthCode
+  getRegisterAuthCode ({ commit }, userEmail) {
     return new Promise((resolve, reject) => {
-      getAuthCode({ username: userEmail.trim() })
+      getRegisterAuthCode({ username: userEmail.trim() })
+        .then((response) => {
+          const { data } = response
+          resolve(data)
+        })
+        .catch((error) => {
+          reject(error)
+        })
+    })
+  },
+
+  // user getPasswordFoundAuthCode
+  getPasswordFoundAuthCode ({ commit }, userEmail) {
+    return new Promise((resolve, reject) => {
+      getPasswordFoundAuthCode({ username: userEmail.trim() })
         .then((response) => {
           const { data } = response
           resolve(data)
@@ -79,14 +100,34 @@ const actions = {
     })
   },
 
+  // password reset
+  resetPassword ({ commit }, userInfo) {
+    const { userEmail, password, authCode } = userInfo
+    return new Promise((resolve, reject) => {
+      resetPassword({
+        username: userEmail.trim(),
+        newPassword: password,
+        authCode: authCode
+      })
+        .then((response) => {
+          resolve()
+        })
+        .catch((error) => {
+          reject(error)
+        })
+    })
+  },
+
   // subscribe
   subscribe ({ commit }, subscribeForm) {
     return new Promise((resolve, reject) => {
-      subscribe(subscribeForm).then((response) => {
-        resolve()
-      }).catch((error) => {
-        reject(error)
-      })
+      subscribe(subscribeForm)
+        .then((response) => {
+          resolve()
+        })
+        .catch((error) => {
+          reject(error)
+        })
     })
   },
 
@@ -103,6 +144,7 @@ const actions = {
           const { username, avatar } = data
           commit('SET_NAME', username)
           commit('SET_AVATAR', avatar)
+          console.log(data)
           resolve(data)
         })
         .catch((error) => {

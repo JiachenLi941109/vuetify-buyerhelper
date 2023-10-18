@@ -1,11 +1,11 @@
 <template>
   <v-container fluid>
     <v-card class="mb-10">
-      <div class="d-flex align-center">
+      <div class="d-flex align-center" @click.stop="show = !show">
         <v-card-title class="primary--text">添加物品</v-card-title>
         <v-spacer></v-spacer>
         <v-btn icon @click.stop="show = !show" class="mx-2">
-          <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+          <v-icon>{{ show ? "mdi-chevron-up" : "mdi-chevron-down" }}</v-icon>
         </v-btn>
       </div>
       <v-expand-transition>
@@ -45,13 +45,18 @@
       <v-container fluid>
         <v-lazy>
           <v-row dense justify="start" align-content="start">
-            <v-col v-for="i in 6" :key="i" cols="auto">
-              <v-card width="360px" class="ma-4" v-model="item" elevation="6">
+            <v-col
+              v-for="item in itemList"
+              :key="item.url"
+              :item="item"
+              cols="auto"
+            >
+              <v-card width="360px" class="ma-4" elevation="6">
                 <a :href="item.url" target="_blank">
                   <v-img
                     width="360px"
                     height="360px"
-                    :src="item.imgSrc"
+                    :src="item.imgUrl"
                     style="color: grey"
                   />
                 </a>
@@ -74,7 +79,7 @@
                         <v-icon>mdi-trash-can-outline</v-icon>
                       </v-btn>
                     </v-card-actions>
-                    <v-card-text>Not Available</v-card-text>
+                    <v-card-text>{{ item.status }}</v-card-text>
                   </div>
                 </div>
               </v-card>
@@ -89,25 +94,30 @@
 import { MessageBox } from 'element-ui'
 export default {
   data: () => ({
-    show: true,
-    item: {
-      id: 'M45847',
-      name: 'Sac Plat BB Bag',
-      price: '£1,530.00',
-      state: 'Not Available',
-      url: 'https://uk.louisvuitton.com/eng-gb/products/sac-plat-bb-bag-monogram-nvprod3100071v',
-      imgSrc:
-        'https://uk.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-sac-plat-bb-bag-monogram-canvas-handbags--M45847_PM2_Front%20view.png?wid=656&hei=656'
-    },
+    show: false,
     itemWebpage: '',
-    loading: false
+    loading: false,
+    list: [1, 2, 3, 4],
+    itemList: ''
   }),
+  // computed: {
+  //   itemList () {
+  //     return this.$store.state.followedItem.followedItemList
+  //   }
+  // },
+  created () {
+    this.$store.dispatch('followedItem/getFollowedItemList')
+    this.itemList = this.$store.state.followedItem.followedItemList
+  },
   methods: {
+    getItemList () {
+      return this.$store.state.followedItem.followedItemList
+    },
     handleDeleteItem () {
       MessageBox.confirm('确认删除')
     },
     handleSubmit () {
-      console.log(this.itemWebpage)
+      console.log(this.$store.state.followedItem.followedItemList)
     }
   }
 }

@@ -1,6 +1,9 @@
 <template>
-  <v-app id="register">
-    <v-container fluid class="d-flex align-center fill-height justify-center pa-0">
+  <v-app id="resetPw">
+    <v-container
+      fluid
+      class="d-flex align-center fill-height justify-center pa-0"
+    >
       <v-card
         elevation="12"
         width="400px"
@@ -15,8 +18,8 @@
         </router-link>
         <v-form
           class="d-flex justify-start flex-column"
-          ref="registerForm"
-          :model="registerForm"
+          ref="resetPwForm"
+          :model="resetPwForm"
         >
           <v-text-field
             class="mx-4"
@@ -27,39 +30,9 @@
             :error-messages="emailErrors"
             clearable
             validate-on-blur
-            v-model="registerForm.userEmail"
-            ref="registerForm.userEmail"
-            @blur="$v.registerForm.userEmail.$touch()"
-          ></v-text-field>
-          <v-text-field
-            class="mx-4"
-            prepend-icon="mdi-lock-outline"
-            label="Password"
-            outlined
-            dense
-            :error-messages="passwordErrors"
-            clearable
-            @click:append="showPwd1 = !showPwd1"
-            :type="showPwd1 ? 'text' : 'password'"
-            validate-on-blur
-            :append-icon="showPwd1 ? 'mdi-eye' : 'mdi-eye-off'"
-            v-model="registerForm.password"
-            @blur="$v.registerForm.password.$touch()"
-          ></v-text-field>
-          <v-text-field
-            class="mx-4"
-            prepend-icon="mdi-lock-check-outline"
-            label="Repeat password"
-            outlined
-            dense
-            :error-messages="repeatPasswordErrors"
-            clearable
-            @click:append="showPwd2 = !showPwd2"
-            :type="showPwd2 ? 'text' : 'password'"
-            validate-on-blur
-            :append-icon="showPwd2 ? 'mdi-eye' : 'mdi-eye-off'"
-            v-model="registerForm.repeatPassword"
-            @blur="$v.registerForm.repeatPassword.$touch()"
+            v-model="resetPwForm.userEmail"
+            ref="resetPwForm.userEmail"
+            @blur="$v.resetPwForm.userEmail.$touch()"
           ></v-text-field>
           <v-text-field
             class="mx-4"
@@ -69,8 +42,8 @@
             dense
             :error-messages="authCodeErrors"
             validate-on-blur
-            v-model="registerForm.authCode"
-            @blur="$v.registerForm.authCode.$touch()"
+            v-model="resetPwForm.authCode"
+            @blur="$v.resetPwForm.authCode.$touch()"
           >
             <template v-slot:append-outer>
               <v-btn
@@ -93,11 +66,41 @@
               </v-card>
             </template>
           </v-text-field>
+          <v-text-field
+            class="mx-4"
+            prepend-icon="mdi-lock-outline"
+            label="New password"
+            outlined
+            dense
+            :error-messages="passwordErrors"
+            clearable
+            @click:append="showPwd1 = !showPwd1"
+            :type="showPwd1 ? 'text' : 'password'"
+            validate-on-blur
+            :append-icon="showPwd1 ? 'mdi-eye' : 'mdi-eye-off'"
+            v-model="resetPwForm.password"
+            @blur="$v.resetPwForm.password.$touch()"
+          ></v-text-field>
+          <v-text-field
+            class="mx-4"
+            prepend-icon="mdi-lock-check-outline"
+            label="Repeat new password"
+            outlined
+            dense
+            :error-messages="repeatPasswordErrors"
+            clearable
+            @click:append="showPwd2 = !showPwd2"
+            :type="showPwd2 ? 'text' : 'password'"
+            validate-on-blur
+            :append-icon="showPwd2 ? 'mdi-eye' : 'mdi-eye-off'"
+            v-model="resetPwForm.repeatPassword"
+            @blur="$v.resetPwForm.repeatPassword.$touch()"
+          ></v-text-field>
         </v-form>
         <v-card-actions>
-          <v-btn block color="green" dark class="mb-0" @click="handleRegister"
-            >Sign up</v-btn
-          >
+          <v-btn block color="green" dark class="mb-0" @click="handleResetPw">
+            Reset Password
+          </v-btn>
         </v-card-actions>
         <v-btn
           text
@@ -139,7 +142,7 @@ import { required, minLength, maxLength, email } from 'vuelidate/lib/validators'
 export default {
   mixins: [validationMixin],
   validations: {
-    registerForm: {
+    resetPwForm: {
       userEmail: { required, email },
       password: { required, minLength: minLength(6), maxLength: maxLength(15) },
       repeatPassword: { required },
@@ -157,7 +160,7 @@ export default {
     BtnShow: true,
     timer: null,
     count: '',
-    registerForm: {
+    resetPwForm: {
       userEmail: '',
       password: '',
       authCode: ''
@@ -167,41 +170,41 @@ export default {
     emailErrors: {
       get: function () {
         const errors = []
-        if (!this.$v.registerForm.userEmail.$dirty) return errors
-        !this.$v.registerForm.userEmail.email &&
+        if (!this.$v.resetPwForm.userEmail.$dirty) return errors
+        !this.$v.resetPwForm.userEmail.email &&
           errors.push('Must be valid e-mail')
-        !this.$v.registerForm.userEmail.required &&
+        !this.$v.resetPwForm.userEmail.required &&
           errors.push('E-mail is required')
         return errors
       }
     },
     passwordErrors () {
       const errors = []
-      if (!this.$v.registerForm.password.$dirty) return errors
-      !this.$v.registerForm.password.required &&
+      if (!this.$v.resetPwForm.password.$dirty) return errors
+      !this.$v.resetPwForm.password.required &&
         errors.push('Password is required')
       if (
         !(
-          this.$v.registerForm.password.minLength &&
-          this.$v.registerForm.password.maxLength
+          this.$v.resetPwForm.password.minLength &&
+          this.$v.resetPwForm.password.maxLength
         )
       ) {
         errors.push(
           'Password length must be between ' +
-            this.$v.registerForm.password.$params.minLength.min +
+            this.$v.resetPwForm.password.$params.minLength.min +
             ' and ' +
-            this.$v.registerForm.password.$params.maxLength.max
+            this.$v.resetPwForm.password.$params.maxLength.max
         )
       }
       return errors
     },
     repeatPasswordErrors () {
       const errors = []
-      if (!this.$v.registerForm.repeatPassword.$dirty) return errors
-      !this.$v.registerForm.repeatPassword.required && errors.push('Required.')
+      if (!this.$v.resetPwForm.repeatPassword.$dirty) return errors
+      !this.$v.resetPwForm.repeatPassword.required && errors.push('Required.')
       if (
-        this.$v.registerForm.repeatPassword.$model !==
-        this.$v.registerForm.password.$model
+        this.$v.resetPwForm.repeatPassword.$model !==
+        this.$v.resetPwForm.password.$model
       ) {
         errors.push('Please input same password.')
       }
@@ -209,21 +212,21 @@ export default {
     },
     authCodeErrors () {
       const errors = []
-      if (!this.$v.registerForm.authCode.$dirty) return errors
-      !this.$v.registerForm.authCode.required && errors.push('Required.')
+      if (!this.$v.resetPwForm.authCode.$dirty) return errors
+      !this.$v.resetPwForm.authCode.required && errors.push('Required.')
       return errors
     }
   },
   methods: {
-    handleRegister () {
-      this.$v.registerForm.$touch()
-      if (!this.$v.registerForm.$invalid) {
+    handleResetPw () {
+      this.$v.resetPwForm.$touch()
+      if (!this.$v.resetPwForm.$invalid) {
         this.loading = true
-        console.log(this.$v.registerForm.$invalid)
+        console.log(this.$v.resetPwForm.$invalid)
         this.$store
-          .dispatch('user/register', this.registerForm)
+          .dispatch('user/resetPassword', this.resetPwForm)
           .then(() => {
-            MessageBox.confirm('Register Success.', {
+            MessageBox.confirm('Reset Password Success.', {
               confirmButtonText: 'Confirm',
               cancelButtonText: 'Cancel',
               type: 'success'
@@ -241,11 +244,11 @@ export default {
       }
     },
     handleSendAuthCode () {
-      if (!this.$v.registerForm.userEmail.$invalid) {
+      if (!this.$v.resetPwForm.userEmail.$invalid) {
         this.sendCodeBar.loading = true
         const TIME_COUNT = 60
         this.$store
-          .dispatch('user/getRegisterAuthCode', this.registerForm.userEmail)
+          .dispatch('user/getPasswordFoundAuthCode', this.resetPwForm.userEmail)
           .then((response) => {
             this.sendCodeBar.loading = false
             this.sendCodeBar.show = true
@@ -268,7 +271,7 @@ export default {
             this.sendCodeBar.loading = false
           })
       } else {
-        this.$v.registerForm.userEmail.$touch()
+        this.$v.resetPwForm.userEmail.$touch()
       }
     }
   }

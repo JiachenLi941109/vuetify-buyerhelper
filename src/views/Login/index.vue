@@ -9,10 +9,7 @@
         width="400px"
         class="d-flex justify-end flex-column"
       >
-        <v-img
-          height="150"
-          :src=img
-        ></v-img>
+        <v-img height="150" :src="img"></v-img>
 
         <router-link to="/" class="text-center mx-auto" tag="button">
           <v-card-title>BuyerHelper</v-card-title>
@@ -57,10 +54,12 @@
           >
         </v-card-actions>
         <v-container class="d-flex justify-space-between mt-8">
-          <v-btn text plain small class="pa-0">Forgot password?</v-btn>
-          <v-btn text plain small class="pa-0" to="/register"
-            >Create new account</v-btn
-          >
+          <v-btn text plain small class="pa-0" to="/resetPw">
+            Forgot password?
+          </v-btn>
+          <v-btn text plain small class="pa-0" to="/register">
+            Create new account
+          </v-btn>
         </v-container>
       </v-card>
     </v-container>

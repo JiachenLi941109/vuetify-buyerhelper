@@ -14,7 +14,7 @@
             v-model="email"
           ></v-text-field>
           <v-btn color="primary" small outlined class="ma-2">修改密码</v-btn>
-          <v-btn color="primary" small outlined class="ma-2">重置密码</v-btn>
+          <v-btn color="primary" small outlined class="ma-2" to="/resetPw">重置密码</v-btn>
         </v-col>
       </v-row>
       <v-row>
